@@ -1,4 +1,4 @@
-#include "Task.h"
+ï»¿#include "Task.h"
 
 #include <chrono>     // time_point, system_clock, etc.
 #include <iostream>   // cout and basic I/O
@@ -18,7 +18,7 @@ Task::Task(string title, int day, int month, int year, int difficulty, string no
 
 	// Populate it with the provided calendar values
 	tmDue.tm_year = year - 1900;  // 'tm_year' counts years since 1900
-	tmDue.tm_mon = month - 1;    // 'tm_mon' counts months 0–11
+	tmDue.tm_mon = month - 1;    // 'tm_mon' counts months 0ï¿½11
 	tmDue.tm_mday = day;
 	tmDue.tm_hour = 23;           // Default due time is 11:59 PM
 	tmDue.tm_min = 59;
