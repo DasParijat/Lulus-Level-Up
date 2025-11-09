@@ -31,12 +31,15 @@ int main() {
 	window.setView(view);
 
 	while (window.isOpen()) {
+		Clock clock;
 		sf::Event event;
+		float dt = clock.restart().asSeconds();
+
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed)
 				window.close();
 
-			menuButton.buttonHandling(window, event);
+			menuButton.buttonHandling(window, event, dt);
 		}
 
 		window.clear();

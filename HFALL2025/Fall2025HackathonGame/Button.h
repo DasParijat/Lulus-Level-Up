@@ -4,17 +4,18 @@
 class Button {
 protected:
 	sf::Sprite sprite;
-	bool isVisible;
-	bool isClicked;
+	bool isVisible = true;
+	bool isClicked = false;
+	float timeSinceClick = 0.0f;
 
-	std::string defaultTexture;
-	std::string hoverTexture;
-	std::string clickedTexture;
+	std::string defaultTexture = "graphics/lulu1.jpeg";
+	std::string hoverTexture = "graphics/lulu2.jpeg";
+	std::string clickedTexture = "graphics/lulu3.jpeg";
 
 public:
 	
 	sf::FloatRect getGlobalBounds();
 	sf::Sprite getSprite();
 
-	bool buttonHandling(sf::RenderWindow& window, sf::Event& event);
+	bool buttonHandling(sf::RenderWindow& window, sf::Event& event, float dt);
 };

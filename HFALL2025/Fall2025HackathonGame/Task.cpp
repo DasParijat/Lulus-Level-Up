@@ -1,6 +1,7 @@
 #include "Task.h"
 using namespace std;
 
+/*
 Task::Task(string title, int day, int month, int year, int difficulty, string note) {
 	this->title = title;
 	dueDate.tm_mday = day;
@@ -28,4 +29,4 @@ int Task::complete() {
 	return pointVal;
 } // complete
 
-
+*/

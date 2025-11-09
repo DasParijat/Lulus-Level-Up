@@ -18,9 +18,15 @@ sf::Sprite Button::getSprite()
 	return sprite;
 }
 
-bool Button::buttonHandling(sf::RenderWindow& window, sf::Event& event)
+bool Button::buttonHandling(sf::RenderWindow& window, sf::Event& event, float dt)
 {
-	sprite.setTexture(TextureHolder::GetTexture(defaultTexture));
+	if (isClicked) {
+		timeSinceClick += dt;
+		if (timeSinceClick >= 1.0f);
+			sprite.setTexture(TextureHolder::GetTexture(defaultTexture));
+			isClicked = false;
+			timeSinceClick = 0.0f;
+	}
 
 	// Check for mouse hover
 	if (event.type == sf::Event::MouseMoved) {
@@ -35,9 +41,9 @@ bool Button::buttonHandling(sf::RenderWindow& window, sf::Event& event)
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 		if (getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
 			sprite.setTexture(TextureHolder::GetTexture(clickedTexture));
-			return true;
+			isClicked = true;
 		}
 	}
 
-	return false;
+	return isClicked;
 }
