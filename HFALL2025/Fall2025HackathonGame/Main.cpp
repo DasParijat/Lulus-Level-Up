@@ -24,11 +24,10 @@ Font font;
 Text userInput;
 sf::String inputString;
 TextInput userBox;
+Text luluText;
 
 //Tasks
 std::vector<Task> taskList;  // store created tasks
-
-
 
 void gameLoop(RenderWindow& window);
 void handleInput(RenderWindow& window, float dt);
@@ -46,6 +45,13 @@ int main() {
 
 	View view(FloatRect(0, 0, 1152, 720));
 	window.setView(view);
+
+	luluText.setFont(font);
+	luluText.setCharacterSize(20);
+	luluText.setFillColor(Color::White);
+	luluText.setString("I'm excited to be your \ntask manager!");
+	luluText.setPosition(5, 550);
+	
 
 	// TODO fix up game loop when hackathon starts
 	// initializeGame();
@@ -149,6 +155,7 @@ void renderScene(RenderWindow& window) {
 	// --- Lulu ---
 	//lulu.setPosition({ panelBounds.width * 0.3f, panelBounds.height * 0.7f });
 	lulu.draw(window);
+	window.draw(luluText);
 
 	// --- Task Board ---
 	int columnCount = 3;
