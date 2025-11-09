@@ -31,7 +31,7 @@ int maxPoints;
 RectangleShape levelBar;
 RectangleShape levelToGoBar;
 
-//Tasks
+// Tasks
 std::vector<Task> taskList;  // store created tasks
 
 void gameLoop(RenderWindow& window);
@@ -40,7 +40,6 @@ void updateGame(float dt);
 void renderScene(RenderWindow& window);
 
 void initializeGame();
-void finalizeGame();
 
 Button menuButton;
 
@@ -53,9 +52,7 @@ int main() {
 
 
 	// TODO fix up game loop when hackathon starts
-	// initializeGame();
 	gameLoop(window);
-	// finalizeGame();
 
 	return 0;
 }
@@ -72,19 +69,12 @@ void gameLoop(RenderWindow& window) {
 		renderScene(window);
 	}
 
-	finalizeGame();
-
 }
 
 void handleInput(RenderWindow& window, float dt) {
 	Event event;
 	while (window.pollEvent(event)) {
-		if (taskList.size() <= 0) {
-			menuButton.setVisibility(false);
-		}
-		else {
-			menuButton.setVisibility(true);
-		}
+		menuButton.setVisibility(!(taskList.size() <= 0));
 
 		if (menuButton.buttonHandling(window, event, dt)) {
 			points += taskList.front().complete();
@@ -108,21 +98,6 @@ void handleInput(RenderWindow& window, float dt) {
 				points += 10;
 				return;
 			} */
-
-			//case Event::TextEntered:
-			//	if (event.text.unicode == 8 && !inputString.isEmpty()) {
-			//		// Handle backspace
-			//		inputString.erase(inputString.getSize() - 1, 1);
-			//	}
-			//	else if (event.text.unicode < 128 && event.text.unicode != 8) {
-			//		// Add normal characters (ASCII only)
-			//		inputString += static_cast<char>(event.text.unicode);
-			//	}
-			//	userInput.setString(inputString);
-			//	break;
-
-		default:
-			break;
 		}
 	}
 
@@ -255,7 +230,7 @@ void renderScene(RenderWindow& window) {
 	for (const auto& t : taskList) {
 
 		// Sticky note background
-		sf::RectangleShape noteBox(sf::Vector2f(300.f, 80.f));
+		sf::RectangleShape noteBox(sf::Vector2f(325.f, 80.f));
 		noteBox.setPosition(450, y);
 
 		// Color
@@ -349,13 +324,4 @@ void initializeGame() {
 	*/
 
 
-}
-
-void finalizeGame() {
-	/*
-	for (auto obj : gameObjects) {
-		delete obj; // frees memory that was pointed to
-	}
-	gameObjects.clear();
-	*/
 }
