@@ -218,9 +218,6 @@ void renderScene(RenderWindow& window) {
 	// Draw background or static UI
 	// window.draw(counter);
 
-	// Draw the text input box last so it�s visible above the button
-	userBox.draw(window);
-
 	lulu.draw(window);
 	window.draw(luluText);
 
@@ -229,12 +226,12 @@ void renderScene(RenderWindow& window) {
 
 
 	//---- Start tasky loop -------//
-	float y = 100.f;
+	float y = 50.f;
 	for (const auto& t : taskList) {
 
 		// Sticky note background
 		sf::RectangleShape noteBox(sf::Vector2f(300.f, 80.f));
-		noteBox.setPosition(50.f, y);
+		noteBox.setPosition(450, y);
 
 		// Color logic
 		if (t.getCompleted()) {
@@ -267,6 +264,9 @@ void renderScene(RenderWindow& window) {
 		y += 100.f;  // space between notes
 	}
 	//---- End tasky loop -------//
+
+	// Draw the text input box last so it�s visible above the button
+	userBox.draw(window);
 
 	// Display everything
 	window.display();
