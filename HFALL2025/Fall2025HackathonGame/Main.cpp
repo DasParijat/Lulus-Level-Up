@@ -175,14 +175,14 @@ void renderScene(RenderWindow& window) {
 	// Draw background or static UI
 	// window.draw(counter);
 
+	lulu.draw(window);
+	window.draw(luluText);
+
 	// Draw interactive buttons
 	window.draw(menuButton.getSprite());
 
 	// Draw the text input box last so it’s visible above the button
 	userBox.draw(window);
-
-	lulu.draw(window);
-	window.draw(luluText);
 
 
 	//---- Start tasky loop -------//
@@ -230,19 +230,6 @@ void renderScene(RenderWindow& window) {
 }
 
 void initializeGame() {
-
-	srand(int(0));
-
-	luluText.setFont(font);
-	luluText.setCharacterSize(20);
-	luluText.setFillColor(Color::White);
-	luluText.setString("I'm excited to be your \ntask manager!");
-	luluText.setPosition(5, 550);
-
-	textUpdate = (rand() % 10 + 5);
-	cout << textUpdate << endl;
-
-	progTimeTotal = 0;
 
 	if (!font.loadFromFile("fonts/HappyHalloween.ttf")) {
 		cout << "Error loading font\n";

@@ -37,12 +37,7 @@ Task::Task(string title, int day, int month, int year, int difficulty, string no
 // Otherwise -> just difficulty points.
 int Task::complete() {
 	auto now = std::chrono::system_clock::now();
-	if (now <= dueDate) {
-		return 5 + difficulty;   // on or before due date
-	}
-	else {
-		return difficulty;       // late
-	}
+	return 5 + difficulty;
 }
 
 // printDueDate()
