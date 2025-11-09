@@ -4,7 +4,7 @@
 class Button {
 protected:
 	sf::Sprite sprite;
-	bool isVisible = true;
+	bool isVisible = false;
 	bool isClicked = false;
 	float timeSinceClick = 0.0f;
 
