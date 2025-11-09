@@ -165,6 +165,8 @@ void renderScene(RenderWindow& window) {
 	// Draw the text input box last so it’s visible above the button
 	userBox.draw(window);
 
+	lulu.draw(window);
+
 
 	//---- Start tasky loop -------//
 	float y = 100.f;

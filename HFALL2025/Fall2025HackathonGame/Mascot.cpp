@@ -17,10 +17,10 @@ Mascot::Mascot() {
 
 	updateImage();
 
-	sprite.setPosition(0, 774);
+	sprite.setPosition(0, 350);
 
 	textbox.setSize(Vector2f(250, 50));
-	textbox.setPosition(0, 974);
+	textbox.setPosition(0, 550);
 	textbox.setOutlineColor(Color::White);
 	textbox.setOutlineThickness(3);
 	textbox.setFillColor(Color::Black);
@@ -47,7 +47,7 @@ void Mascot::updateImage() {
 		"graphics/lulu" <<
 		levelPic <<
 		".jpg";
-	sprite.setTexture(TextureHolder::GetTexture("graphics/lulu1.jpg"));
+	sprite = Sprite(TextureHolder::GetTexture("graphics/lulu1.jpg"));
 } // updateImage
 
 int Mascot::getLevel() {
@@ -57,5 +57,4 @@ int Mascot::getLevel() {
 void Mascot::draw(sf::RenderWindow& window) {
 	window.draw(sprite);
 	window.draw(textbox);
-	cout << "drawn" << endl;
 } // draw
