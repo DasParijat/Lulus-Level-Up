@@ -33,7 +33,7 @@ int main() {
 
 	View view(FloatRect(0, 0, 800, 600));
 	window.setView(view);
-	
+
 	/*
 	while (window.isOpen()) {
 		Clock clock;
@@ -93,17 +93,17 @@ void handleInput(RenderWindow& window, float dt) {
 				return;
 			}
 
-		//case Event::TextEntered:
-		//	if (event.text.unicode == 8 && !inputString.isEmpty()) {
-		//		// Handle backspace
-		//		inputString.erase(inputString.getSize() - 1, 1);
-		//	}
-		//	else if (event.text.unicode < 128 && event.text.unicode != 8) {
-		//		// Add normal characters (ASCII only)
-		//		inputString += static_cast<char>(event.text.unicode);
-		//	}
-		//	userInput.setString(inputString);
-		//	break;
+			//case Event::TextEntered:
+			//	if (event.text.unicode == 8 && !inputString.isEmpty()) {
+			//		// Handle backspace
+			//		inputString.erase(inputString.getSize() - 1, 1);
+			//	}
+			//	else if (event.text.unicode < 128 && event.text.unicode != 8) {
+			//		// Add normal characters (ASCII only)
+			//		inputString += static_cast<char>(event.text.unicode);
+			//	}
+			//	userInput.setString(inputString);
+			//	break;
 
 		default:
 			break;
@@ -138,7 +138,7 @@ void renderScene(RenderWindow& window) {
 }
 
 void initializeGame() {
-	
+
 	if (!font.loadFromFile("fonts/HappyHalloween.ttf")) {
 		cout << "Error loading font\n";
 	}
