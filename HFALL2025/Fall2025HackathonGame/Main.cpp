@@ -134,7 +134,7 @@ void handleInput(RenderWindow& window, float dt) {
 		int month = local.tm_mon + 1;
 		int year = local.tm_year + 1900;
 
-		Task newTask(taskTitle, day, month, year, 1);
+		Task newTask(taskTitle, day, month, year);
 		taskList.push_back(newTask);
 
 		std::cout << "Created Task: " << taskTitle << std::endl;
@@ -294,10 +294,10 @@ void initializeGame() {
 	menuButton.setPosition(Vector2f(30, 30));
 
 	userBox.setFont(font);
-	userBox.setPosition(50.f, 520.f);  // near bottom of an 800�600 window
-	userBox.setBoxSize(700.f, 40.f);   // fill most of width
+	userBox.setPosition(300.f, 520.f);  // near bottom of an 800�600 window
+	userBox.setBoxSize(450.f, 40.f);   // fill most of width
 
-	Task demoTask("Hackathon Demo", 9, 11, 2025, 3);
+	Task demoTask("Hackathon Demo", 9, 11, 2025);
 	points = demoTask.complete();
 	maxPoints = 10;
 

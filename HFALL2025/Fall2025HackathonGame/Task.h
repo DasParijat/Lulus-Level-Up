@@ -15,18 +15,18 @@ private:
     // Stores the due date/time as a chrono time_point (modern type-safe date representation)
     std::chrono::system_clock::time_point dueDate;
 
-    // Difficulty rating (used to calculate reward points)
-    int difficulty;
-
     // Optional text note with extra details
     std::string note;
 
     // completed flag
     bool isCompleted = false;
 
+    // point value of task
+    int value = 5;
+
 public:
     // CONSTRUCTOR
-    Task(std::string title, int day, int month, int year, int difficulty, std::string note = "");
+    Task(std::string title, int day, int month, int year, std::string note = "");
 
     // complete()
     // Calculates how many points the player earns

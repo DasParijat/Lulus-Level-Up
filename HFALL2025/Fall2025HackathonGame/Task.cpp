@@ -10,8 +10,8 @@ using namespace std::chrono;
 
 
 // CONSTRUCTOR
-Task::Task(string title, int day, int month, int year, int difficulty, string note)
-	: title(title), difficulty(difficulty), note(note)
+Task::Task(string title, int day, int month, int year, string note)
+	: title(title), note(note)
 {
 	// Build a standard C "tm" struct to hold the date
 	std::tm tmDue = {};
@@ -37,7 +37,7 @@ Task::Task(string title, int day, int month, int year, int difficulty, string no
 // Otherwise -> just difficulty points.
 int Task::complete() {
 	auto now = std::chrono::system_clock::now();
-	return 5 + difficulty;
+	return value;
 }
 
 // printDueDate()
