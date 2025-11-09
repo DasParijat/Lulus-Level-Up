@@ -4,6 +4,12 @@
 
 using namespace std;
 
+Button::Button()
+{
+	sprite = sf::Sprite(TextureHolder::GetTexture(defaultTexture));
+
+}
+
 sf::FloatRect Button::getGlobalBounds()
 {
 	return sprite.getGlobalBounds();
@@ -34,10 +40,11 @@ bool Button::buttonHandling(sf::RenderWindow& window, sf::Event& event, float dt
 	cout << "button works" << endl;
 	if (isClicked) {
 		timeSinceClick += dt;
-		if (timeSinceClick >= 1.0f);
+		if (timeSinceClick >= 1.0f) {
 			sprite.setTexture(TextureHolder::GetTexture(defaultTexture));
 			isClicked = false;
 			timeSinceClick = 0.0f;
+		}
 	}
 
 	// Check for mouse hover

@@ -13,6 +13,7 @@ protected:
 	std::string clickedTexture = "graphics/lulu3.jpg";
 
 public:
+	Button();
 	
 	sf::FloatRect getGlobalBounds();
 	sf::Sprite getSprite();

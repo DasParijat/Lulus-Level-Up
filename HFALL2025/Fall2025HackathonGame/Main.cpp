@@ -38,7 +38,7 @@ int main() {
 	View view(FloatRect(0, 0, 800, 600));
 	window.setView(view);
 
-	
+	/*
 	while (window.isOpen()) {
 		Clock clock;
 		sf::Event event;
@@ -56,6 +56,7 @@ int main() {
 		lulu.draw(window);
 		window.display();
 	}
+	*/
 	
 
 	// TODO fix up game loop when hackathon starts
