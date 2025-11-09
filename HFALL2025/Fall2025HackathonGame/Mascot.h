@@ -6,9 +6,12 @@ class Mascot {
 private:
 	sf::Sprite sprite;
 	sf::RectangleShape textbox;
-	int level;
+	int level = 1;
 
 public:
 	Mascot();
 	void levelUp();
+	void updateImage();
+	int getLevel();
+	void draw(sf::RenderWindow& window);
 };
