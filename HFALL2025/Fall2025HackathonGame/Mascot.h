@@ -10,7 +10,7 @@ private:
 
 public:
 	Mascot();
-	void levelUp();
+	int levelUp();
 	void updateImage();
 	int getLevel();
 	void draw(sf::RenderWindow& window);

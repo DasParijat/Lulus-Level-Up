@@ -24,6 +24,9 @@ Text luluText;
 float textUpdate;
 float progTimeTotal;
 
+int points;
+int maxPoints;
+
 //Tasks
 std::vector<Task> taskList;  // store created tasks
 
@@ -165,7 +168,31 @@ void updateGame(float dt) {
 			break;
 		}
 		textUpdate = progTimeTotal + (rand() % 10 + 5);
-		std::cout << textUpdate << endl;
+
+		if (points >= maxPoints) {
+			int level = lulu.levelUp();
+			maxPoints += 10;
+			points -= maxPoints;
+			switch (level) {
+			case 2:
+				luluText.setString("Wow!! You're so\nhard at work!");
+				break;
+			case 3:
+				luluText.setString("I put on a dress\nto celebrate your victory!");
+				break;
+			case 4:
+				luluText.setString("Your progress makes\nme smile!");
+				break;
+			case 5:
+				luluText.setString("I'm so happy for you!!");
+				break;
+			default:
+				luluText.setString("Another level up!");
+				break;
+			}
+			textUpdate = progTimeTotal + (rand() % 10 + 5);
+		}
+
 	}
 }
 
@@ -175,14 +202,14 @@ void renderScene(RenderWindow& window) {
 	// Draw background or static UI
 	// window.draw(counter);
 
+	// Draw the text input box last so it’s visible above the button
+	userBox.draw(window);
+
 	lulu.draw(window);
 	window.draw(luluText);
 
 	// Draw interactive buttons
 	window.draw(menuButton.getSprite());
-
-	// Draw the text input box last so it’s visible above the button
-	userBox.draw(window);
 
 
 	//---- Start tasky loop -------//
@@ -231,9 +258,17 @@ void renderScene(RenderWindow& window) {
 
 void initializeGame() {
 
+	srand(int(0));
+
 	if (!font.loadFromFile("fonts/HappyHalloween.ttf")) {
 		cout << "Error loading font\n";
 	}
+
+	luluText.setFont(font);
+	luluText.setCharacterSize(20);
+	luluText.setFillColor(Color::White);
+	luluText.setPosition(25, 550);
+	luluText.setString("I'm so excited to be\nyour task manager!");
 
 	userInput.setFont(font);
 	userInput.setCharacterSize(30);
@@ -248,7 +283,11 @@ void initializeGame() {
 	userBox.setBoxSize(700.f, 40.f);   // fill most of width
 
 	Task demoTask("Hackathon Demo", 9, 11, 2025, 3);
-	int points = demoTask.complete();
+	points = demoTask.complete();
+	maxPoints = 10;
+
+	progTimeTotal = 0;
+	textUpdate = (rand() % 10 + 5);
 
 	auto timeT = std::chrono::system_clock::to_time_t(demoTask.getDueDate());
 	std::tm localTm{};

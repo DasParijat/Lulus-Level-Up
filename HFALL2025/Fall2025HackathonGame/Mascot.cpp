@@ -27,7 +27,7 @@ Mascot::Mascot() {
 
 } // constructor
 
-void Mascot::levelUp() {
+int Mascot::levelUp() {
 	level++;
 	updateImage();
 	ifstream inputFile("gamedata/level.txt");
@@ -35,6 +35,7 @@ void Mascot::levelUp() {
 		inputFile >> level;
 		inputFile.close();
 	} // if file open
+	return level;
 } // levelUp
 
 void Mascot::updateImage() {
