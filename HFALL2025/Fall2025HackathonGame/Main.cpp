@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include "SFML/Graphics.hpp"
-#include "LayoutManager.h"
 #include "Button.h"
 #include "Task.h"
 #include "TextInput.h"
@@ -12,10 +11,6 @@ using namespace sf;
 using namespace std;
 
 //--- Globals --//
-//Layout
-LayoutManager layout(1152.f, 720.f);
-
-// Textures
 TextureHolder holder;
 Mascot lulu;
 
@@ -40,10 +35,10 @@ void finalizeGame();
 Button menuButton;
 
 int main() {
-	VideoMode vm(1152, 720);
+	VideoMode vm(800, 600);
 	RenderWindow window(vm, "Fall 2025 HACKATHON");
 
-	View view(FloatRect(0, 0, 1152, 720));
+	View view(FloatRect(0, 0, 800, 600));
 	window.setView(view);
 
 	luluText.setFont(font);
@@ -83,14 +78,6 @@ void handleInput(RenderWindow& window, float dt) {
 		menuButton.buttonHandling(window, event, dt);
 		userBox.handleEvent(event);
 
-		// Window layout resizer thingy
-		if (event.type == sf::Event::Resized) {
-			sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
-			window.setView(sf::View(visibleArea));
-			layout.update(static_cast<float>(event.size.width), static_cast<float>(event.size.height));
-		}
-
-
 		switch (event.type) {
 		case Event::Closed:
 			window.close();
@@ -100,6 +87,18 @@ void handleInput(RenderWindow& window, float dt) {
 				window.close();
 				return;
 			}
+
+			//case Event::TextEntered:
+			//	if (event.text.unicode == 8 && !inputString.isEmpty()) {
+			//		// Handle backspace
+			//		inputString.erase(inputString.getSize() - 1, 1);
+			//	}
+			//	else if (event.text.unicode < 128 && event.text.unicode != 8) {
+			//		// Add normal characters (ASCII only)
+			//		inputString += static_cast<char>(event.text.unicode);
+			//	}
+			//	userInput.setString(inputString);
+			//	break;
 
 		default:
 			break;
@@ -142,38 +141,33 @@ void updateGame(float dt) {
 void renderScene(RenderWindow& window) {
 	window.clear();
 
-	// --- Panel background ---
-	sf::FloatRect panelBounds = layout.getLeftPanelBounds();
-	sf::RectangleShape leftPanel(sf::Vector2f(panelBounds.width, panelBounds.height));
-	leftPanel.setFillColor(sf::Color(35, 40, 60));
-	window.draw(leftPanel);
+	// Draw background or static UI
+	// window.draw(counter);
 
-	// --- Buttons and text box ---
-	window.draw(menuButton.getSprite());
-	userBox.draw(window);
-
-	// --- Lulu ---
-	//lulu.setPosition({ panelBounds.width * 0.3f, panelBounds.height * 0.7f });
 	lulu.draw(window);
 	window.draw(luluText);
 
-	// --- Task Board ---
-	int columnCount = 3;
-	sf::Vector2f taskSize = layout.getTaskSize(columnCount);
+	// Draw interactive buttons
+	window.draw(menuButton.getSprite());
 
-	for (size_t i = 0; i < taskList.size(); ++i) {
-		sf::Vector2f pos = layout.getTaskPosition(static_cast<int>(i), columnCount);
+	// Draw the text input box last so it’s visible above the button
+	userBox.draw(window);
+
+
+	//---- Start tasky loop -------//
+	float y = 100.f;
+	for (const auto& t : taskList) {
 
 		// Sticky note background
-		sf::RectangleShape noteBox(taskSize);
-		noteBox.setPosition(pos);
+		sf::RectangleShape noteBox(sf::Vector2f(300.f, 80.f));
+		noteBox.setPosition(50.f, y);
 
 		// Color logic
-		if (taskList[i].getCompleted()) {
-			noteBox.setFillColor(sf::Color(180, 255, 180)); // green for done
+		if (t.getCompleted()) {
+			noteBox.setFillColor(sf::Color(180, 255, 180));   // light green for done
 		}
 		else {
-			noteBox.setFillColor(sf::Color(255, 255, 150)); // yellow for active
+			noteBox.setFillColor(sf::Color(255, 255, 150));   // yellow for active
 		}
 		noteBox.setOutlineColor(sf::Color(200, 180, 80));
 		noteBox.setOutlineThickness(2.f);
@@ -183,23 +177,26 @@ void renderScene(RenderWindow& window) {
 		shadow.move(5.f, 5.f);
 		shadow.setFillColor(sf::Color(0, 0, 0, 60));
 
-		// Task text (auto-scaled to note height)
+		// Task text
 		sf::Text titleText;
 		titleText.setFont(font);
-		titleText.setCharacterSize(static_cast<unsigned int>(taskSize.y * 0.25f)); // scale text
+		titleText.setCharacterSize(20);
 		titleText.setFillColor(sf::Color::Black);
-		titleText.setString(taskList[i].getTitle());
-		titleText.setPosition(pos.x + 10.f, pos.y + 10.f);
+		titleText.setString(t.getTitle());
+		titleText.setPosition(noteBox.getPosition().x + 10.f, noteBox.getPosition().y + 10.f);
 
 		// Draw shadow, box, and text
 		window.draw(shadow);
 		window.draw(noteBox);
 		window.draw(titleText);
-	}
 
+		y += 100.f;  // space between notes
+	}
+	//---- End tasky loop -------//
+
+	// Display everything
 	window.display();
 }
-
 
 void initializeGame() {
 
