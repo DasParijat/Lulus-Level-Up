@@ -4,18 +4,22 @@
 #include "Button.h"
 #include "Task.h"
 #include "TextInput.h"
+#include "Mascot.h"
+#include "TextureHolder.h"
 
 
 using namespace sf;
 using namespace std;
 
 // Text
+TextureHolder holder;
+
+Mascot lulu;
+
 Font font;
 Text userInput;
 sf::String inputString;
 TextInput userBox;
-
-
 
 void gameLoop(RenderWindow& window);
 void handleInput(RenderWindow& window, float dt);
@@ -34,7 +38,7 @@ int main() {
 	View view(FloatRect(0, 0, 800, 600));
 	window.setView(view);
 
-	/*
+	
 	while (window.isOpen()) {
 		Clock clock;
 		sf::Event event;
@@ -49,9 +53,10 @@ int main() {
 
 		window.clear();
 		window.draw(menuButton.getSprite());
+		lulu.draw(window);
 		window.display();
 	}
-	*/
+	
 
 	// TODO fix up game loop when hackathon starts
 	// initializeGame();

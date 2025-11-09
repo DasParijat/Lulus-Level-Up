@@ -47,7 +47,7 @@ void Mascot::updateImage() {
 		"graphics/lulu" <<
 		levelPic <<
 		".jpg";
-	sprite.setTexture(TextureHolder::GetTexture(streamFile.str()));
+	sprite.setTexture(TextureHolder::GetTexture("graphics/lulu1.jpg"));
 } // updateImage
 
 int Mascot::getLevel() {
