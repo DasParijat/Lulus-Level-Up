@@ -2,6 +2,7 @@
 #include <vector>
 #include "SFML/Graphics.hpp"
 #include "Button.h"
+#include "Task.h"
 
 using namespace sf;
 using namespace std;
@@ -138,6 +139,21 @@ void initializeGame() {
 	userInput.setString("");
 
 	menuButton.setPosition(Vector2f(30, 30));
+
+	Task demoTask("Hackathon Demo", 9, 11, 2025, 3);
+	int points = demoTask.complete();
+
+	auto timeT = std::chrono::system_clock::to_time_t(demoTask.getDueDate());
+	std::tm localTm{};
+	localtime_s(&localTm, &timeT);
+
+	std::ostringstream oss;
+	oss << "Task: Hackathon Demo\n"
+		<< "Due: " << std::put_time(&localTm, "%b %d, %Y %H:%M") << "\n"
+		<< "Points if completed: " << points;
+
+	userInput.setString(oss.str());
+
 
 }
 

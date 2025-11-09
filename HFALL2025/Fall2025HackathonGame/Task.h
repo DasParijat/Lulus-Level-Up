@@ -1,16 +1,36 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <ctime>
+// Include C++20 date/time utilities (modern replacement for <ctime>)
+#include <chrono>
+// Include string class for text-based fields like title and note
+#include <string>
+
 
 class Task {
 
 private:
-	std::string title;
-	struct tm dueDate;
-	int difficulty;
-	std::string note;
+    // Title or short description of the task
+    std::string title;
+
+    // Stores the due date/time as a chrono time_point (modern type-safe date representation)
+    std::chrono::system_clock::time_point dueDate;
+
+    // Difficulty rating (used to calculate reward points)
+    int difficulty;
+
+    // Optional text note with extra details
+    std::string note;
 
 public:
-	Task(std::string title, int day, int month, int year, int difficulty, std::string note = "");
-	int complete();
+    // CONSTRUCTOR
+    Task(std::string title, int day, int month, int year, int difficulty, std::string note = "");
+
+    // complete()
+    // Calculates how many points the player earns
+    // if the task is completed before or after the due date.
+    int complete();
+
+    // getDueDate()
+    // Returns the internal due date for display or logging.
+    std::chrono::system_clock::time_point getDueDate() const { return dueDate; }
 };
