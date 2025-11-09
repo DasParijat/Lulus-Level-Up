@@ -64,7 +64,7 @@ void TextInput::handleEvent(sf::Event& event) {
         event.key.code == sf::Keyboard::Enter) {
         if (!content.empty()) {
             std::cout << "Submitted text: " << content << std::endl;
-            clear();
+            hasSubmitted = true;  // signal that new text is ready
             isActive = false;
             box.setOutlineColor(sf::Color::Yellow);
         }

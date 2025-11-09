@@ -33,4 +33,8 @@ public:
     // getDueDate()
     // Returns the internal due date for display or logging.
     std::chrono::system_clock::time_point getDueDate() const { return dueDate; }
+
+    // title getter
+    std::string getTitle() const { return title; }
+
 };

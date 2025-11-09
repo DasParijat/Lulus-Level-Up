@@ -10,6 +10,9 @@ private:
     bool isActive = false;   // True only when the user has clicked inside the box
 
 public:
+
+    bool hasSubmitted = false;  // flag to signal a new submission
+
     TextInput();
 
     // Setup
