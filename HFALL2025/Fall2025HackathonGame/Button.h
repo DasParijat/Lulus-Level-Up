@@ -19,5 +19,7 @@ public:
 	sf::Sprite getSprite();
 	void setPosition(sf::Vector2f position);
 
+	void setVisibility(bool isVisible);
+
 	bool buttonHandling(sf::RenderWindow& window, sf::Event& event, float dt);
 };

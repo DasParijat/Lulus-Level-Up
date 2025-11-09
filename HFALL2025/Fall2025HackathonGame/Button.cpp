@@ -17,14 +17,12 @@ sf::FloatRect Button::getGlobalBounds()
 
 sf::Sprite Button::getSprite()
 {
-	/*
 	if (!isVisible) {
 		sprite.setColor(sf::Color(255, 255, 255, 0));
 	}
 	else {
 		sprite.setColor(sf::Color(255, 255, 255, 255));
 	}
-	*/
 
 	return sprite;
 }
@@ -34,10 +32,17 @@ void Button::setPosition(sf::Vector2f position)
 	sprite.setPosition(position);
 }
 
+void Button::setVisibility(bool isVisible)
+{
+	this->isVisible = isVisible;
+}
+
 
 bool Button::buttonHandling(sf::RenderWindow& window, sf::Event& event, float dt)
 {
-	//cout << "button works" << endl;
+	// Return current isClicked value if invisible
+	if (!isVisible) return isClicked;
+
 	if (isClicked) {
 		timeSinceClick += dt;
 		if (timeSinceClick >= 1.0f) {
@@ -52,6 +57,9 @@ bool Button::buttonHandling(sf::RenderWindow& window, sf::Event& event, float dt
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 		if (getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
 			sprite.setTexture(TextureHolder::GetTexture(hoverTexture));
+		}
+		else {
+			sprite.setTexture(TextureHolder::GetTexture(defaultTexture));
 		}
 	}
 

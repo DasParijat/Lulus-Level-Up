@@ -144,14 +144,14 @@ void renderScene(RenderWindow& window) {
 	// Draw background or static UI
 	// window.draw(counter);
 
+	lulu.draw(window);
+	window.draw(luluText);
+
 	// Draw interactive buttons
 	window.draw(menuButton.getSprite());
 
 	// Draw the text input box last so it’s visible above the button
 	userBox.draw(window);
-
-	lulu.draw(window);
-	window.draw(luluText);
 
 
 	//---- Start tasky loop -------//
