@@ -9,10 +9,10 @@ using namespace std;
 
 Mascot::Mascot() {
 
-	ofstream outputFile("gamedata/level.txt");
-	if (outputFile.is_open()) {
-		outputFile << level;
-		outputFile.close();
+	ifstream inputFile("gamedata/level.txt");
+	if (inputFile.is_open()) {
+		inputFile >> level;
+		inputFile.close();
 	} // if file open
 
 	updateImage();
@@ -30,10 +30,10 @@ Mascot::Mascot() {
 int Mascot::levelUp() {
 	level++;
 	updateImage();
-	ifstream inputFile("gamedata/level.txt");
-	if (inputFile.is_open()) {
-		inputFile >> level;
-		inputFile.close();
+	ofstream outputFile("gamedata/level.txt");
+	if (outputFile.is_open()) {
+		outputFile << level;
+		outputFile.close();
 	} // if file open
 	return level;
 } // levelUp
@@ -48,7 +48,8 @@ void Mascot::updateImage() {
 		"graphics/lulu" <<
 		levelPic <<
 		".jpg";
-	sprite = Sprite(TextureHolder::GetTexture("graphics/lulu1.jpg"));
+	sprite = Sprite(TextureHolder::GetTexture(streamFile.str()));
+	sprite.setPosition(0, 350);
 } // updateImage
 
 int Mascot::getLevel() {

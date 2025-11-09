@@ -87,6 +87,10 @@ void handleInput(RenderWindow& window, float dt) {
 				window.close();
 				return;
 			}
+			if (event.key.code == Keyboard::Space) {
+				points += 10;
+				return;
+			}
 
 			//case Event::TextEntered:
 			//	if (event.text.unicode == 8 && !inputString.isEmpty()) {
@@ -132,6 +136,31 @@ void updateGame(float dt) {
 
 	progTimeTotal += dt;
 
+	// Check if leveled up
+	if (points >= maxPoints) {
+		int level = lulu.levelUp();
+		maxPoints += 10;
+		points -= maxPoints;
+		switch (level) {
+		case 2:
+			luluText.setString("Wow!! You're so\nhard at work!");
+			break;
+		case 3:
+			luluText.setString("I put on a dress to\ncelebrate your victory!");
+			break;
+		case 4:
+			luluText.setString("Your progress makes\nme smile!");
+			break;
+		case 5:
+			luluText.setString("I'm so happy for you!!");
+			break;
+		default:
+			luluText.setString("Another level up!");
+			break;
+		}
+		textUpdate = progTimeTotal + (rand() % 10 + 5);
+	}
+
 	// update luluText
 	if (textUpdate <= progTimeTotal) {
 		int randNum = rand() % 10 + 1;
@@ -168,30 +197,6 @@ void updateGame(float dt) {
 			break;
 		}
 		textUpdate = progTimeTotal + (rand() % 10 + 5);
-
-		if (points >= maxPoints) {
-			int level = lulu.levelUp();
-			maxPoints += 10;
-			points -= maxPoints;
-			switch (level) {
-			case 2:
-				luluText.setString("Wow!! You're so\nhard at work!");
-				break;
-			case 3:
-				luluText.setString("I put on a dress\nto celebrate your victory!");
-				break;
-			case 4:
-				luluText.setString("Your progress makes\nme smile!");
-				break;
-			case 5:
-				luluText.setString("I'm so happy for you!!");
-				break;
-			default:
-				luluText.setString("Another level up!");
-				break;
-			}
-			textUpdate = progTimeTotal + (rand() % 10 + 5);
-		}
 
 	}
 }
