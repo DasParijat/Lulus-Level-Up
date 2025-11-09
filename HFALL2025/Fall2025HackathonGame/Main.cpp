@@ -28,6 +28,9 @@ float progTimeTotal;
 int points;
 int maxPoints;
 
+RectangleShape levelBar;
+RectangleShape levelToGoBar;
+
 //Tasks
 std::vector<Task> taskList;  // store created tasks
 
@@ -86,6 +89,7 @@ void handleInput(RenderWindow& window, float dt) {
 		if (menuButton.buttonHandling(window, event, dt)) {
 			points += taskList.front().complete();
 			taskList.erase(taskList.begin());
+			cout << points << endl;
 		}
 
 		userBox.handleEvent(event);
@@ -99,10 +103,11 @@ void handleInput(RenderWindow& window, float dt) {
 				window.close();
 				return;
 			}
+			/*
 			if (event.key.code == Keyboard::Space) {
 				points += 10;
 				return;
-			}
+			} */
 
 			//case Event::TextEntered:
 			//	if (event.text.unicode == 8 && !inputString.isEmpty()) {
@@ -151,8 +156,11 @@ void updateGame(float dt) {
 	// Check if leveled up
 	if (points >= maxPoints) {
 		int level = lulu.levelUp();
-		maxPoints += 10;
 		points -= maxPoints;
+		maxPoints += 5;
+		if (maxPoints > 50) {
+			maxPoints = 50;
+		} // maxPoints cap
 		switch (level) {
 		case 2:
 			luluText.setString("Wow!! You're so\nhard at work!");
@@ -165,6 +173,9 @@ void updateGame(float dt) {
 			break;
 		case 5:
 			luluText.setString("I'm so happy for you!!");
+			break;
+		case 6:
+			luluText.setString("Thanks to you, I have\nbecome a task god.");
 			break;
 		default:
 			luluText.setString("Another level up!");
@@ -193,7 +204,7 @@ void updateGame(float dt) {
 			luluText.setString("You seem way too busy to\nplay. Keep going!");
 			break;
 		case 6:
-			luluText.setString("I chewed on some of your\ntasks. Sorry.");
+			luluText.setString("I chewed on some of\nyour tasks. Sorry.");
 			break;
 		case 7:
 			luluText.setString("Don't forget anything!");
@@ -218,6 +229,9 @@ void updateGame(float dt) {
 		"Level: " <<
 		lulu.getLevel();
 	levelText.setString(streamLevel.str());
+
+	// Update level bar
+	levelBar.setSize(Vector2f(200 / maxPoints * points, 20));
 }
 
 void renderScene(RenderWindow& window) {
@@ -229,6 +243,8 @@ void renderScene(RenderWindow& window) {
 	lulu.draw(window);
 	window.draw(luluText);
 	window.draw(levelText);
+	window.draw(levelToGoBar);
+	window.draw(levelBar);
 
 	// Draw interactive buttons
 	window.draw(menuButton.getSprite());
@@ -242,14 +258,9 @@ void renderScene(RenderWindow& window) {
 		sf::RectangleShape noteBox(sf::Vector2f(300.f, 80.f));
 		noteBox.setPosition(450, y);
 
-		// Color logic
-		if (t.getCompleted()) {
-			noteBox.setFillColor(sf::Color(180, 255, 180));   // light green for done
-		}
-		else {
-			noteBox.setFillColor(sf::Color(255, 255, 150));   // yellow for active
-		}
-		noteBox.setOutlineColor(sf::Color(200, 180, 80));
+		// Color
+		noteBox.setFillColor(sf::Color(134, 52, 140));
+		noteBox.setOutlineColor(sf::Color(168, 0, 173));
 		noteBox.setOutlineThickness(2.f);
 
 		// Drop shadow
@@ -261,7 +272,7 @@ void renderScene(RenderWindow& window) {
 		sf::Text titleText;
 		titleText.setFont(font);
 		titleText.setCharacterSize(20);
-		titleText.setFillColor(sf::Color::Black);
+		titleText.setFillColor(sf::Color::White);
 		titleText.setString(t.getTitle());
 		titleText.setPosition(noteBox.getPosition().x + 10.f, noteBox.getPosition().y + 10.f);
 
@@ -298,8 +309,14 @@ void initializeGame() {
 	levelText.setFont(font);
 	levelText.setCharacterSize(25);
 	levelText.setFillColor(Color::White);
-	levelText.setPosition(80, 320);
+	levelText.setPosition(80, 280);
 
+	levelToGoBar.setFillColor(Color(168, 0, 173));
+	levelToGoBar.setPosition(25, 320);
+	levelToGoBar.setSize(Vector2f(200, 20));
+	levelBar.setFillColor(Color(255, 61, 203));
+	levelBar.setPosition(25, 320);
+	
 	userInput.setFont(font);
 	userInput.setCharacterSize(30);
 	userInput.setFillColor(Color::White);
@@ -312,16 +329,16 @@ void initializeGame() {
 	userBox.setPosition(300.f, 520.f);  // near bottom of an 800�600 window
 	userBox.setBoxSize(450.f, 40.f);   // fill most of width
 
-	Task demoTask("Hackathon Demo", 9, 11, 2025);
-	points = demoTask.complete();
-	maxPoints = 10;
+	maxPoints = 5 + (5 * lulu.getLevel());
 
 	progTimeTotal = 0;
 	textUpdate = (rand() % 10 + 5);
 
+	/*
 	auto timeT = std::chrono::system_clock::to_time_t(demoTask.getDueDate());
 	std::tm localTm{};
 	localtime_s(&localTm, &timeT);
+	
 
 	std::ostringstream oss;
 	oss << "Task: Hackathon Demo\n"
@@ -329,6 +346,7 @@ void initializeGame() {
 		<< "Points if completed: " << points;
 
 	userInput.setString(oss.str());
+	*/
 
 
 }

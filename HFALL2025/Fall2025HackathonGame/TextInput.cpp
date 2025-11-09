@@ -1,10 +1,12 @@
 #include "TextInput.h"
 #include <iostream>
 
+using namespace sf;
+
 TextInput::TextInput() {
     // bright background so you can see it
-    box.setFillColor(sf::Color(80, 80, 200));           // bluish rectangle
-    box.setOutlineColor(sf::Color::Yellow);             // yellow outline
+    box.setFillColor(Color(71, 18, 70));
+    box.setOutlineColor(Color(168, 0, 173));
     box.setOutlineThickness(3.f);
     box.setSize({ 400.f, 50.f });
 
@@ -38,11 +40,11 @@ void TextInput::handleEvent(sf::Event& event) {
         // Activate if the click was inside the box
         if (box.getGlobalBounds().contains(mousePos)) {
             isActive = true;
-            box.setOutlineColor(sf::Color::Green);   // active border
+            box.setOutlineColor(Color(255, 61, 203));   // active border
         }
         else {
             isActive = false;
-            box.setOutlineColor(sf::Color::Yellow);  // inactive border
+            box.setOutlineColor(Color(168, 0, 173));  // inactive border
         }
     }
 
