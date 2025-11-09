@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
 #include "SFML/Graphics.hpp"
 #include "Button.h"
@@ -46,7 +46,7 @@ int main() {
 
 	View view(FloatRect(0, 0, 800, 600));
 	window.setView(view);
-	
+
 
 	// TODO fix up game loop when hackathon starts
 	// initializeGame();
@@ -75,7 +75,17 @@ void gameLoop(RenderWindow& window) {
 void handleInput(RenderWindow& window, float dt) {
 	Event event;
 	while (window.pollEvent(event)) {
-		menuButton.buttonHandling(window, event, dt);
+		if (taskList.size() <= 0) {
+			menuButton.setVisibility(false);
+		}
+		else {
+			menuButton.setVisibility(true);
+		}
+
+		if (menuButton.buttonHandling(window, event, dt)) {
+			points += taskList.front().complete();
+			taskList.erase(taskList.begin());
+		}
 		userBox.handleEvent(event);
 
 		switch (event.type) {
@@ -115,7 +125,7 @@ void handleInput(RenderWindow& window, float dt) {
 		userBox.clear();
 		userBox.hasSubmitted = false;
 
-		// Create a new Task with today’s date and difficulty 1 (for now)
+		// Create a new Task with todayï¿½s date and difficulty 1 (for now)
 		time_t now = time(0);
 		tm local{};
 		localtime_s(&local, &now);  // thread-safe version
@@ -207,7 +217,7 @@ void renderScene(RenderWindow& window) {
 	// Draw background or static UI
 	// window.draw(counter);
 
-	// Draw the text input box last so it’s visible above the button
+	// Draw the text input box last so itï¿½s visible above the button
 	userBox.draw(window);
 
 	lulu.draw(window);
@@ -284,7 +294,7 @@ void initializeGame() {
 	menuButton.setPosition(Vector2f(30, 30));
 
 	userBox.setFont(font);
-	userBox.setPosition(50.f, 520.f);  // near bottom of an 800×600 window
+	userBox.setPosition(50.f, 520.f);  // near bottom of an 800ï¿½600 window
 	userBox.setBoxSize(700.f, 40.f);   // fill most of width
 
 	Task demoTask("Hackathon Demo", 9, 11, 2025, 3);
