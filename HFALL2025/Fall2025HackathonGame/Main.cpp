@@ -203,7 +203,7 @@ void renderScene(RenderWindow& window) {
 
 void initializeGame() {
 
-	if (!font.loadFromFile("fonts/HappyHalloween.ttf")) {
+	if (!font.loadFromFile("fonts/Chewy-Regular.ttf")) {
 		cout << "Error loading font\n";
 	}
 
