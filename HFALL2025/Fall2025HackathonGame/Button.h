@@ -8,9 +8,9 @@ protected:
 	bool isClicked = false;
 	float timeSinceClick = 0.0f;
 
-	std::string defaultTexture = "graphics/lulu1.jpg";
-	std::string hoverTexture = "graphics/lulu2.jpg";
-	std::string clickedTexture = "graphics/lulu3.jpg";
+	std::string defaultTexture = "graphics/buttonDefault.png";
+	std::string hoverTexture = "graphics/buttonHover.png";
+	std::string clickedTexture = "graphics/buttonClicked.png";
 
 public:
 	Button();
