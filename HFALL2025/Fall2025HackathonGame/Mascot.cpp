@@ -41,8 +41,8 @@ int Mascot::levelUp() {
 void Mascot::updateImage() {
 	stringstream streamFile;
 	int levelPic = level;
-	if (levelPic > 5) {
-		levelPic = 5;
+	if (levelPic > 6) {
+		levelPic = 6;
 	} // if over 5
 	streamFile <<
 		"graphics/lulu" <<

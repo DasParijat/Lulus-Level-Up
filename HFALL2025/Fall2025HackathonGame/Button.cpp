@@ -18,7 +18,7 @@ sf::FloatRect Button::getGlobalBounds()
 sf::Sprite Button::getSprite()
 {
 	if (!isVisible) {
-		sprite.setColor(sf::Color(255, 255, 255, 0));
+		sprite.setColor(sf::Color(255, 255, 255, 127));
 	}
 	else {
 		sprite.setColor(sf::Color(255, 255, 255, 255));
@@ -67,7 +67,7 @@ bool Button::buttonHandling(sf::RenderWindow& window, sf::Event& event, float dt
 	if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 		if (getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-			sprite.setTexture(TextureHolder::GetTexture(clickedTexture));
+			// sprite.setTexture(TextureHolder::GetTexture(clickedTexture));
 			isClicked = true;
 		}
 	}
