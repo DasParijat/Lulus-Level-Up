@@ -21,6 +21,9 @@ sf::String inputString;
 TextInput userBox;
 Text luluText;
 
+float textUpdate;
+float progTimeTotal;
+
 //Tasks
 std::vector<Task> taskList;  // store created tasks
 
@@ -40,12 +43,6 @@ int main() {
 
 	View view(FloatRect(0, 0, 800, 600));
 	window.setView(view);
-
-	luluText.setFont(font);
-	luluText.setCharacterSize(20);
-	luluText.setFillColor(Color::White);
-	luluText.setString("I'm excited to be your \ntask manager!");
-	luluText.setPosition(5, 550);
 	
 
 	// TODO fix up game loop when hackathon starts
@@ -64,7 +61,7 @@ void gameLoop(RenderWindow& window) {
 	while (window.isOpen()) {
 		float dt = clock.restart().asSeconds();
 		handleInput(window, dt);
-		// updateGame(dt);
+		updateGame(dt);
 		renderScene(window);
 	}
 
@@ -130,12 +127,46 @@ void handleInput(RenderWindow& window, float dt) {
 
 void updateGame(float dt) {
 
-	/*
-	for (auto obj : gameObjects) {
-		obj->update(dt);
+	progTimeTotal += dt;
+
+	// update luluText
+	if (textUpdate <= progTimeTotal) {
+		int randNum = rand() % 10 + 1;
+		switch (randNum) {
+		case 1:
+			luluText.setString("You can do it!");
+			break;
+		case 2:
+			luluText.setString("Feed me tasks!");
+			break;
+		case 3:
+			luluText.setString("With every task you do,\nmy power grows...");
+			break;
+		case 4:
+			luluText.setString("Bark bark.");
+			break;
+		case 5:
+			luluText.setString("You seem way too busy to\nplay. Keep going!");
+			break;
+		case 6:
+			luluText.setString("I chewed on some of your\ntasks. Sorry.");
+			break;
+		case 7:
+			luluText.setString("Don't forget anything!");
+			break;
+		case 8:
+			luluText.setString("How long til we\nlevel up??");
+			break;
+		case 9:
+			luluText.setString("I'm bored.\nCan we do a task?");
+			break;
+		case 10:
+			luluText.setString("I want a treat. The\ntreat is tasks!");
+			break;
+		}
+		textUpdate = progTimeTotal + (rand() % 10 + 5);
+		std::cout << textUpdate << endl;
 	}
-	checkCollisions(gameObjects);
-	*/
 }
 
 void renderScene(RenderWindow& window) {
@@ -199,6 +230,19 @@ void renderScene(RenderWindow& window) {
 }
 
 void initializeGame() {
+
+	srand(int(0));
+
+	luluText.setFont(font);
+	luluText.setCharacterSize(20);
+	luluText.setFillColor(Color::White);
+	luluText.setString("I'm excited to be your \ntask manager!");
+	luluText.setPosition(5, 550);
+
+	textUpdate = (rand() % 10 + 5);
+	cout << textUpdate << endl;
+
+	progTimeTotal = 0;
 
 	if (!font.loadFromFile("fonts/HappyHalloween.ttf")) {
 		cout << "Error loading font\n";
