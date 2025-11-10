@@ -1,5 +1,6 @@
 # Marist Computer Society Hackathon Fall 2025 Submission
 ## By Sophia Masone, Parijat Das, and Joanna Picciano
+This was a project submitted for the Hackathon on 11/9/2025.
 
 # Idea: Lulu's Level up
 ## Theme: Productivity Tools
