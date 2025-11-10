@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <vector>
+
 #include "SFML/Graphics.hpp"
 #include "Button.h"
 #include "Task.h"
@@ -51,7 +52,7 @@ int main() {
 	window.setView(view);
 
 
-	// TODO fix up game loop when hackathon starts
+	initializeGame();
 	gameLoop(window);
 
 	return 0;
@@ -59,8 +60,6 @@ int main() {
 
 void gameLoop(RenderWindow& window) {
 	Clock clock;
-
-	initializeGame();
 
 	while (window.isOpen()) {
 		float dt = clock.restart().asSeconds();
